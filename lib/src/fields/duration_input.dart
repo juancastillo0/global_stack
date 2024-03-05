@@ -176,11 +176,11 @@ class DurationInput extends HookWidget {
             children: [
               Text(
                 'Range:',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               Text(
                 '''max: ${durationString(Duration(milliseconds: maxMillis))}''',
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             ],
           ),
@@ -200,7 +200,7 @@ class DurationInput extends HookWidget {
             children: [
               Text(
                 'Text:',
-                style: Theme.of(context).textTheme.subtitle2,
+                style: Theme.of(context).textTheme.titleSmall,
               ),
               const SizedBox(width: 10),
               SizedBox(
@@ -222,7 +222,7 @@ class DurationInput extends HookWidget {
             padding: const EdgeInsets.all(10),
             child: Text(
               durationString(durationState.value),
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
           const SizedBox(height: 5),

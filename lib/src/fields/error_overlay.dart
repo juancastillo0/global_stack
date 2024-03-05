@@ -44,7 +44,7 @@ class ErrorOverlay extends HookWidget {
             constraints: const BoxConstraints(maxWidth: 250),
             child: Text(
               error!,
-              style: theme.textTheme.bodyText2!.copyWith(
+              style: theme.textTheme.bodyMedium!.copyWith(
                 color: theme.colorScheme.onError,
               ),
             ),

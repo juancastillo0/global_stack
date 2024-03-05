@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show HookWidget, useState;
 
@@ -81,11 +80,13 @@ class ButtonSelect<T> extends HookWidget {
               key: Key(s),
               onPressed: () => onChange(e),
               style: TextButton.styleFrom(
-                  backgroundColor:
-                      e == selected ? theme.colorScheme.primary : null,
-                  primary: e == selected ? theme.colorScheme.onPrimary : null),
+                backgroundColor:
+                    e == selected ? theme.colorScheme.primary : null,
+                foregroundColor:
+                    e == selected ? theme.colorScheme.onPrimary : null,
+              ),
               child: Builder(builder: (context) {
-                SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+                SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                   // print("Text ${ctx.size} ${ctx.globalPaintBounds}");
                   if (buttonTop == null) {
                     buttonTop = globalPaintBounds(context)!.top;

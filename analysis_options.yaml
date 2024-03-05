@@ -38,3 +38,4 @@ analyzer:
     missing_return: error
     unrelated_type_equality_checks: error
     null_check_on_nullable_type_parameter: warning
+    deprecated_member_use: error

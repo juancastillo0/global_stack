@@ -150,7 +150,7 @@ class CustomOverlay extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final overlay = Overlay.of(context);
+    final overlay = Overlay.maybeOf(context);
 
     final _keyPortal = useMemoized(() => GlobalKey());
     final _keyChild = useMemoized(() => GlobalKey());
@@ -170,30 +170,38 @@ class CustomOverlay extends HookWidget {
     );
 
     void _tryRebuildEntry() {
-      SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
         if (show && entry.mounted) {
           entry.markNeedsBuild();
         }
       });
     }
 
-    useEffect(() {
-      if (show && overlay != null) {
-        SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
-          if (show) {
-            overlay.insert(entry);
-            _tryRebuildEntry();
-          }
-        });
-        return () {
-          entry.remove();
-        };
-      }
-    }, [show, overlay, entry]);
+    useEffect(
+      () {
+        if (show && overlay != null) {
+          SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+            if (show) {
+              overlay.insert(entry);
+              _tryRebuildEntry();
+            }
+          });
+          return () {
+            entry.remove();
+          };
+        }
+        return null;
+      },
+      [show, overlay, entry],
+    );
 
-    useEffect(() {
-      _tryRebuildEntry();
-    }, [portal]);
+    useEffect(
+      () {
+        _tryRebuildEntry();
+        return null;
+      },
+      [portal],
+    );
 
     return KeyedSubtree(key: _keyChild, child: child);
   }

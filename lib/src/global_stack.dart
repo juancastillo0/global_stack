@@ -63,21 +63,29 @@ class StackPortal extends HookWidget {
     final _ref = useMemoized(() => _Ref());
     final stack = GlobalStack.of(context);
 
-    useEffect(() {
-      if (show) {
-        _ref.id = stack.addWidget(portal);
-        return () {
-          stack.removeWidget(_ref.id!);
-          _ref.id = null;
-        };
-      }
-    }, [show]);
+    useEffect(
+      () {
+        if (show) {
+          _ref.id = stack.addWidget(portal);
+          return () {
+            stack.removeWidget(_ref.id!);
+            _ref.id = null;
+          };
+        }
+        return null;
+      },
+      [show],
+    );
 
-    useEffect(() {
-      if (show) {
-        stack.updateWidget(_ref.id!, portal);
-      }
-    }, [portal]);
+    useEffect(
+      () {
+        if (show) {
+          stack.updateWidget(_ref.id!, portal);
+        }
+        return null;
+      },
+      [portal],
+    );
 
     return child;
   }
@@ -111,7 +119,7 @@ class GlobalStackState extends ChangeNotifier {
   }
 
   void _notify() {
-    SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       notifyListeners();
     });
   }

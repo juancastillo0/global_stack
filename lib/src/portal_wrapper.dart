@@ -33,7 +33,7 @@ Widget makePositioned({
         final boundsPortal =
             globalPaintBounds(portalKey.currentContext) ?? Rect.zero;
 
-        SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+        SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
           final _new = globalPaintBounds(portalKey.currentContext) ?? Rect.zero;
           final _inter = _new.intersect(boundsPortal);
           if (_inter.width < _new.width * 0.99 ||

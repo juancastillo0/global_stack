@@ -100,7 +100,7 @@ class PortalParams {
 
   @override
   int get hashCode {
-    return hashValues(
+    return Object.hash(
       onTapOutside,
       backgroundColor,
       childAnchor,

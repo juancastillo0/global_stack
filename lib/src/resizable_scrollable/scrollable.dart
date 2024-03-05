@@ -82,7 +82,7 @@ class MultiScrollController {
   }
 
   void notifyAll() {
-    SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       if (horizontal.hasClients) {
         final multiplerH = horizontal.offset <= 0.01 ? 1 : -1;
         horizontal.jumpTo(horizontal.offset + multiplerH * 0.0001);
@@ -183,7 +183,7 @@ class _MultiScrollableState extends State<MultiScrollable> with RouteAware {
     super.initState();
     _initController();
 
-    SchedulerBinding.instance!.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
       _notifyAll();
     });
   }
@@ -221,8 +221,7 @@ class _MultiScrollableState extends State<MultiScrollable> with RouteAware {
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, box) {
-                    SchedulerBinding.instance!
-                        .addPostFrameCallback((timeStamp) {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                       if (innerWidth != box.maxWidth ||
                           innerHeight != box.maxHeight) {
                         setState(() {
@@ -300,7 +299,6 @@ class ButtonScrollbar extends HookWidget {
     useListenable(controller);
     final isPressedButton = useState(false);
     if (!controller.hasClients ||
-        controller.position == null ||
         !controller.position.hasViewportDimension ||
         controller.position.viewportDimension < maxSize! ||
         controller.position.maxScrollExtent == 0) {
@@ -395,9 +393,11 @@ class _ScrollbarButton extends StatelessWidget {
           maxHeight: _iconSize,
           maxWidth: _iconSize,
         ),
-        child: FlatButton(
+        child: TextButton(
           onPressed: onPressed,
-          padding: _scrollIconPadding,
+          style: TextButton.styleFrom(
+            padding: _scrollIconPadding,
+          ),
           child: Icon(
             isStart
                 ? (horizontal ? Icons.arrow_left : Icons.arrow_drop_up)

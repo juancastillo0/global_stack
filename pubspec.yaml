@@ -1,10 +1,10 @@
 name: stack_portal
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/juancastillo0/stack_portal
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:

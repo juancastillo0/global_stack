@@ -85,7 +85,7 @@ class _Flex extends InitialSize {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (other is _Flex) {
       return this.value == other.value;
     }
@@ -112,7 +112,7 @@ class _Size extends InitialSize {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     if (other is _Size) {
       return this.value == other.value;
     }

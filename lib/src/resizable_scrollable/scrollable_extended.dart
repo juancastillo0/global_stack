@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'scrollable.dart';
 
@@ -150,10 +151,12 @@ class _MouseScrollListenerState extends State<MouseScrollListener> {
     }
   }
 
-  void _onKey(RawKeyEvent event) {
+  void _onKey(KeyEvent event) {
     setState(() {
-      isShiftPressed = event.data.isShiftPressed;
-      isCtrlPressed = event.data.isControlPressed;
+      isShiftPressed = event.logicalKey == LogicalKeyboardKey.shiftLeft ||
+          event.logicalKey == LogicalKeyboardKey.shiftRight;
+      isCtrlPressed = event.logicalKey == LogicalKeyboardKey.controlLeft ||
+          event.logicalKey == LogicalKeyboardKey.controlRight;
     });
   }
 
@@ -163,10 +166,10 @@ class _MouseScrollListenerState extends State<MouseScrollListener> {
       onEnter: (_) => _focusNode.requestFocus(),
       onExit: (_) => _focusNode.unfocus(
           disposition: UnfocusDisposition.previouslyFocusedChild),
-      child: RawKeyboardListener(
+      child: KeyboardListener(
         autofocus: true,
         focusNode: _focusNode,
-        onKey: _onKey,
+        onKeyEvent: _onKey,
         child: Listener(
           onPointerSignal: _onPointerSignal,
           child: widget.child,

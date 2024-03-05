@@ -41,7 +41,7 @@ class DateInput extends StatelessWidget {
                   ),
                   child: Text(
                     'RESET',
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                   ),
                 ),
               )

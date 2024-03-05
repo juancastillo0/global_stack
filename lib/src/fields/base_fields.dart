@@ -194,16 +194,20 @@ TextInputParams useTextInput<T>(
   final wasFocused = useState(false);
   final wasEdited = useState(false);
 
-  useEffect(() {
-    if (value == null) {
-      controller.value = controller.value.copyWith(text: '');
-    } else if (serializer.fromString(controller.text) != value) {
-      error.value = null;
-      controller.value = controller.value.copyWith(
-        text: serializer.asString(value),
-      );
-    }
-  }, [serializer, value]);
+  useEffect(
+    () {
+      if (value == null) {
+        controller.value = controller.value.copyWith(text: '');
+      } else if (serializer.fromString(controller.text) != value) {
+        error.value = null;
+        controller.value = controller.value.copyWith(
+          text: serializer.asString(value),
+        );
+      }
+      return null;
+    },
+    [serializer, value],
+  );
 
   final onChangedString = useMemoized(() {
     void _onControllerChange(String newString) {
@@ -228,20 +232,24 @@ TextInputParams useTextInput<T>(
     return _onControllerChange;
   }, [serializer, value, onChanged]);
 
-  useEffect(() {
-    if (!wasFocused.value) {
-      void _c() {
-        if (focusNode.hasPrimaryFocus) {
-          wasFocused.value = true;
+  useEffect(
+    () {
+      if (!wasFocused.value) {
+        void _c() {
+          if (focusNode.hasPrimaryFocus) {
+            wasFocused.value = true;
+          }
         }
-      }
 
-      focusNode.addListener(_c);
-      return () {
-        focusNode.removeListener(_c);
-      };
-    }
-  }, [wasFocused.value]);
+        focusNode.addListener(_c);
+        return () {
+          focusNode.removeListener(_c);
+        };
+      }
+      return null;
+    },
+    [wasFocused.value],
+  );
 
   useValueChanged<bool, void>(focusNode.hasPrimaryFocus, (prev, _) {
     if (prev && !focusNode.hasPrimaryFocus) {
@@ -355,7 +363,7 @@ class WrappedTextInput extends StatelessWidget {
       textAlignVertical: params.textAlignVertical,
       textDirection: params.textDirection,
       readOnly: params.readOnly,
-      toolbarOptions: params.toolbarOptions,
+      contextMenuBuilder: params.contextMenuBuilder,
       showCursor: params.showCursor,
       autofocus: params.autofocus,
       obscuringCharacter: params.obscuringCharacter,
